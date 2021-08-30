@@ -64,7 +64,7 @@
                 alert(data);
                 localStorage.setItem("loginid", username);
                 localStorage.setItem("loginstatus", "OK");
-                location.href="http://www.hyalinehk.com:9999/book";
+                location.href="http://127.0.0.1:9998";
               }
 
             else{
@@ -78,12 +78,17 @@
     });
     
     });
+
+
+
+
+    
   </script>
   
   <body class="text-center">
     
 <main class="form-signin">
-  <form>
+  <form method="POST">
     <img class="mb-4" src="../assets/login.png" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
