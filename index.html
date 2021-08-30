@@ -18,6 +18,37 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
+
+    <script>
+
+    $(document).ready(function(weather){
+    $('.owl-carousel').owlCarousel();
+
+    $.ajax({
+        type:"GET",
+        url: "https://ap-i.covid19api.com/summary",
+        dataType: "json",
+        success: function(result, status, xhr){
+            alert(result.Global.NewConfirmed);  
+            $("#apiresult").html(result.Global.Newconfirmed);
+            for(i=0; i<result.Countries.length;i++){
+
+            $("#apiresult").append(result.Countries[i].CountryCode);
+            $("#apiresult").append("</n>");
+
+            }
+
+        },
+
+        error:function(xhr, status, error){
+            alert("Result: " + status + "error " + xhr.status + "xhr.statusText")}
+
+    });
+
+    });
+
+    </script>
+
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -29,8 +60,8 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                         <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/register_2.html">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/sign-in/login.html">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -66,7 +97,7 @@
         <!-- Services-->
         <section class="page-section" id="services">
             <div class="container px-4 px-lg-5">
-                <h2 class="text-center mt-0">Change Your Life</h2>
+                <h2 class="text-center mt-0">Change Your Life -Your Life To-do List-</h2>
                 <hr class="divider" />
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-lg-3 col-md-6 text-center">
@@ -164,7 +195,13 @@
         <!-- Call to action-->
         <section class="page-section bg-dark text-white">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">Slot free for API</h2>
+                <h2 class="mb-4">Today Weather</h2>
+                    <div class="Weather"> 
+                        <div class="c">Error</div>
+                        <div class="circle"></div>
+                        <div class="f" href="https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en"></div>
+                        
+                    </div>
                 <a class="btn btn-light btn-xl" href="https://startbootstrap.com/theme/creative/">Download Now!</a>
             </div>
         </section>

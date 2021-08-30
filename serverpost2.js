@@ -1,10 +1,20 @@
 var http = require('http');
 var fs = require('fs');
 var qs = require('querystring');
+const 	express = require('express'),
+		app = express(),
+	 	mongoose = require("mongoose"),
+		passport = require("passport"),
+		bodyParser = require("body-parser"),
+      	LocalStrategy = require("passport-local"),
+      	passportLocalMongoose = require("passport-local-mongoose"),
+      	User       =  require("./models/user");
 
-var MongoClient = require('mongodb').MongoClient;
-
-var dbUrl="mongodb://localhost:27017/mydb";
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+mongoose.connect("mongodb://localhost:27017/mydb");
 
 //create a server object:
 http.createServer(function (req, res) {
@@ -17,13 +27,13 @@ http.createServer(function (req, res) {
 		sendFileContent(res, "index.html", "text/html");
 	}
 	
-	else if(req.url === "/login"){
-		console.log("login testing")
-		sendFileContent(res, "sign-in/login.html", "text/html");
-	}
+	//else if(req.url === "/login"){
+	//	console.log("login testing")
+	//	sendFileContent(res, "sign-in/login.html", "text/html");
+	//}
 
-	else if(req.url === "/login2"){
-		console.log("login testing")
+	else if(req.url === "/login"){
+		console.log("login testing2")
 		sendFileContent(res, "sign-in/login2.html", "text/html");
 	}
 
@@ -33,10 +43,10 @@ http.createServer(function (req, res) {
 		if(req.method==="POST"){
 			formData = '';
 			return req.on('data', function(data) {
-				console.log('return data to login');
+				
 			    formData='';
 				formData+=data;
-				console.log('I am formData '+formData);
+				console.log(formData);
 				
 				return req.on('end', function() {
 				
@@ -52,8 +62,7 @@ http.createServer(function (req, res) {
 						
 						var query={"login":user,"password":pwd};
 						
-						MongoClient.connect(dbUrl, {useNewUrlParser: true,
-							useUnifiedTopology: true},function(err, db) {
+						MongoClient.connect(dbUrl, function(err, db) {
 								if (err) throw err;
 									var dbo = db.db("mydb");
 									//var query={"login": login,"pass":pass};
@@ -85,7 +94,7 @@ http.createServer(function (req, res) {
 	}
 	
 	else if(req.url === "/reg"){
-		sendFileContent(res, "register_2.html", "text/html");
+		sendFileContent(res, "register.html", "text/html");
 	}
 	
 	else if(req.url === "/check_reg"){
